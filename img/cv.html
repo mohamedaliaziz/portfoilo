@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mohamed Ali — CV | Full Stack Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* ===================== RESET & BASE ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 10.5pt;
+      color: #1a1a2e;
+      background: #f0f2f5;
+      line-height: 1.6;
+    }
+
+    /* ===================== PRINT BUTTON ===================== */
+    .print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(124,58,237,0.4);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .print-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(124,58,237,0.6);
+    }
+
+    /* ===================== PAGE WRAPPER ===================== */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 30px auto;
+      background: #fff;
+      box-shadow: 0 10px 60px rgba(0,0,0,0.15);
+      display: grid;
+      grid-template-columns: 72mm 1fr;
+      overflow: hidden;
+    }
+
+    /* ===================== LEFT SIDEBAR ===================== */
+    .sidebar {
+      background: linear-gradient(160deg, #0f0c29, #302b63, #24243e);
+      color: #e2e8f0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Profile Area */
+    .profile-area {
+      background: linear-gradient(135deg, #7c3aed 0%, #06b6d4 100%);
+      padding: 32px 24px 24px;
+      text-align: center;
+      position: relative;
+    }
+
+    .profile-img-wrap {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.4);
+      margin: 0 auto 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .profile-name {
+      font-size: 16pt;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .profile-title {
+      font-size: 8.5pt;
+      color: rgba(255,255,255,0.85);
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    /* Sidebar Sections */
+    .sidebar-body {
+      padding: 20px 20px;
+      flex: 1;
+    }
+
+    .sidebar-section {
+      margin-bottom: 22px;
+    }
+
+    .sidebar-section-title {
+      font-size: 7pt;
+      font-weight: 700;
+      color: #06b6d4;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      border-bottom: 1px solid rgba(6,182,212,0.3);
+      padding-bottom: 5px;
+      margin-bottom: 12px;
+    }
+
+    /* Contact Items */
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .contact-icon {
+      width: 20px;
+      height: 20px;
+      background: rgba(124,58,237,0.35);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .contact-text {
+      font-size: 8.5pt;
+      color: #cbd5e1;
+      line-height: 1.4;
+    }
+
+    .contact-text a {
+      color: #67e8f9;
+      text-decoration: none;
+    }
+
+    /* Skills Bars */
+    .skill-item {
+      margin-bottom: 10px;
+    }
+
+    .skill-header {
+      display: flex;
+      justify-content: space-between;
+      font-size: 8.5pt;
+      color: #e2e8f0;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .skill-pct { color: #06b6d4; font-size: 7.5pt; }
+
+    .skill-bar-bg {
+      height: 4px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #7c3aed, #06b6d4);
+      border-radius: 2px;
+    }
+
+    /* Tech Tags */
+    .tech-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    .tech-tag {
+      background: rgba(124,58,237,0.25);
+      border: 1px solid rgba(124,58,237,0.4);
+      color: #c4b5fd;
+      font-size: 7.5pt;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-weight: 500;
+    }
+
+    /* Languages */
+    .lang-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 7px;
+    }
+
+    .lang-name { font-size: 8.5pt; color: #e2e8f0; }
+
+    .lang-dots { display: flex; gap: 3px; }
+
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+
+    .dot.filled { background: #06b6d4; }
+
+    /* ===================== RIGHT MAIN ===================== */
+    .main {
+      padding: 28px 26px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 20px;
+    }
+
+    .section-title {
+      font-size: 11pt;
+      font-weight: 800;
+      color: #1e1b4b;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      position: relative;
+      padding-left: 12px;
+      margin-bottom: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, #7c3aed, #06b6d4);
+      border-radius: 2px;
+    }
+
+    /* Objective */
+    .objective-text {
+      font-size: 9.5pt;
+      color: #475569;
+      line-height: 1.7;
+      background: linear-gradient(135deg, #f8f7ff, #eff6ff);
+      border-left: 3px solid #7c3aed;
+      padding: 10px 14px;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Experience Items */
+    .exp-item {
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .exp-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 4px;
+    }
+
+    .exp-title {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+
+    .exp-date {
+      font-size: 8pt;
+      color: #7c3aed;
+      font-weight: 600;
+      background: rgba(124,58,237,0.08);
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    .exp-org {
+      font-size: 8.5pt;
+      color: #06b6d4;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .exp-desc {
+      font-size: 9pt;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .exp-desc ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .exp-desc ul li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 2px;
+    }
+
+    .exp-desc ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      color: #7c3aed;
+      font-size: 8pt;
+    }
+
+    /* Project Tags */
+    .exp-techs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 6px;
+    }
+
+    .exp-tech {
+      background: rgba(124,58,237,0.08);
+      color: #7c3aed;
+      font-size: 7.5pt;
+      padding: 1px 7px;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+
+    /* Education */
+    .edu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .edu-degree {
+      font-size: 10pt;
+      font-weight: 700;
+      color: #1e1b4b;
+    }
+
+    .edu-school {
+      font-size: 8.5pt;
+      color: #06b6d4;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    .edu-date {
+      font-size: 8pt;
+      color: #7c3aed;
+      font-weight: 600;
+      background: rgba(124,58,237,0.08);
+      padding: 2px 8px;
+      border-radius: 10px;
+      white-space: nowrap;
+    }
+
+    /* Certifications */
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .cert-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #7c3aed, #06b6d4);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .cert-text {
+      font-size: 9pt;
+      color: #334155;
+    }
+
+    .cert-text strong {
+      color: #1e1b4b;
+    }
+
+    /* Soft Skills */
+    .soft-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .soft-skill {
+      background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(6,182,212,0.08));
+      border: 1px solid rgba(124,58,237,0.2);
+      color: #4338ca;
+      font-size: 8.5pt;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* WhatsApp highlight */
+    .whatsapp-link {
+      color: #16a34a !important;
+      font-weight: 700 !important;
+    }
+
+    /* ===================== PRINT ===================== */
+    @media print {
+      body { background: white; }
+      .print-btn { display: none !important; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        width: 100%;
+        min-height: 100vh;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Print Button -->
+  <button class="print-btn" onclick="window.print()">
+    🖨️ Print / Save as PDF
+  </button>
+
+  <!-- CV Page -->
+  <div class="page">
+
+    <!-- ===== LEFT SIDEBAR ===== -->
+    <aside class="sidebar">
+
+      <!-- Profile -->
+      <div class="profile-area">
+        <div class="profile-img-wrap">👨‍💻</div>
+        <div class="profile-name">Mohamed Ali</div>
+        <div class="profile-title">Full Stack Developer<br>MERN Stack · Video Producer · AI Expert</div>
+      </div>
+
+      <div class="sidebar-body">
+
+        <!-- Contact -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Contact</div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📱</div>
+            <div class="contact-text">
+              <a href="https://wa.me/966543008768" class="whatsapp-link">+966 543 008 768</a><br>
+              <span style="font-size:7.5pt;color:#94a3b8;">WhatsApp Available</span>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div class="contact-text">
+              <a href="mailto:mohamedalisaidahmed@gmail.com">mohamedalisaidahmed@gmail.com</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-text">Jeddah, Saudi Arabia 🇸🇦</div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🔗</div>
+            <div class="contact-text">
+              <a href="https://www.linkedin.com/in/mohamed-ali-7a0710191/">LinkedIn Profile</a>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">📘</div>
+            <div class="contact-text">
+              <a href="https://tinyurl.com/3kpjf6js">Facebook Page</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dev Skills -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Development</div>
+
+          <div class="skill-item">
+            <div class="skill-header"><span>React.js</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Node.js</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>JavaScript / ES6+</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>MongoDB</span><span class="skill-pct">80%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:80%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>HTML5 / CSS3</span><span class="skill-pct">95%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:95%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>TypeScript</span><span class="skill-pct">75%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:75%"></div></div>
+          </div>
+        </div>
+
+        <!-- Tech Stack -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Tech Stack</div>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">MongoDB</span>
+            <span class="tech-tag">Express</span>
+            <span class="tech-tag">Redux</span>
+            <span class="tech-tag">REST API</span>
+            <span class="tech-tag">Bootstrap</span>
+            <span class="tech-tag">Tailwind</span>
+            <span class="tech-tag">Firebase</span>
+            <span class="tech-tag">Docker</span>
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">Figma</span>
+          </div>
+        </div>
+
+        <!-- Creative Skills -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Creative Skills</div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Video Editing</span><span class="skill-pct">90%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:90%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>Infographic Design</span><span class="skill-pct">88%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:88%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>UI/UX Design</span><span class="skill-pct">85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:85%"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-header"><span>AI Tools</span><span class="skill-pct">92%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" style="width:92%"></div></div>
+          </div>
+        </div>
+
+        <!-- Languages -->
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Languages</div>
+          <div class="lang-item">
+            <span class="lang-name">Arabic</span>
+            <div class="lang-dots">
+              <div class="dot filled"></div><div class="dot filled"></div>
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div>
+            </div>
+          </div>
+          <div class="lang-item">
+            <span class="lang-name">English</span>
+            <div class="lang-dots">
+              <div class="dot filled"></div><div class="dot filled"></div>
+              <div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- ===== RIGHT MAIN CONTENT ===== -->
+    <main class="main">
+
+      <!-- Objective -->
+      <div class="section">
+        <div class="section-title">Professional Summary</div>
+        <div class="objective-text">
+          Passionate <strong>Full Stack Developer</strong> with <strong>5+ years of experience</strong> building scalable web and mobile applications using the <strong>MERN stack</strong> (MongoDB, Express, React, Node.js). Based in <strong>Jeddah, Saudi Arabia</strong>. Also a professional <strong>Video Producer</strong>, Interactive Infographic Designer, and <strong>AI Solutions Expert</strong>. Extensive knowledge in Saudi government digital services and vehicle services.
+        </div>
+      </div>
+
+      <!-- Experience -->
+      <div class="section">
+        <div class="section-title">Work Experience</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">Full Stack Developer — MERN Stack</div>
+            <div class="exp-date">2021 – Present</div>
+          </div>
+          <div class="exp-org">Freelance · Jeddah, Saudi Arabia</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Built 80+ scalable web apps & mobile applications for Saudi clients across e-commerce, fintech, and government platforms</li>
+              <li>Delivered full-stack solutions using React, Node.js, Express, MongoDB with REST API integration</li>
+              <li>Implemented JWT authentication, Redux state management, and payment gateways</li>
+              <li>Collaborated with cross-functional teams and provided UI/UX consultancy</li>
+            </ul>
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">React</span>
+            <span class="exp-tech">Node.js</span>
+            <span class="exp-tech">MongoDB</span>
+            <span class="exp-tech">Express</span>
+            <span class="exp-tech">Redux</span>
+            <span class="exp-tech">REST APIs</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">Professional Video Producer & Designer</div>
+            <div class="exp-date">2020 – Present</div>
+          </div>
+          <div class="exp-org">Freelance · Saudi Arabia</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Produced 100+ cinematic promotional videos, motion graphics, and brand reels for Saudi companies and individuals</li>
+              <li>Designed interactive infographics, professional profile designs, and visual brand identities</li>
+              <li>Expert in color grading, sound design, and advanced motion graphics</li>
+            </ul>
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">Premiere Pro</span>
+            <span class="exp-tech">After Effects</span>
+            <span class="exp-tech">Figma</span>
+            <span class="exp-tech">Illustrator</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">Saudi Government Services Specialist</div>
+            <div class="exp-date">2019 – Present</div>
+          </div>
+          <div class="exp-org">Independent Consultant · Jeddah</div>
+          <div class="exp-desc">
+            <ul>
+              <li>Expert in vehicle ownership transfer (نقل الملكية), Absher, Muqeem, and Nafath digital services</li>
+              <li>Handled kafala transfer, passport & visa processing, and all Saudi e-government portals</li>
+              <li>Vehicle insurance, traffic services, and driving license processing</li>
+            </ul>
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">أبشر</span>
+            <span class="exp-tech">مقيم</span>
+            <span class="exp-tech">نفاذ</span>
+            <span class="exp-tech">نقل ملكية</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Featured Projects -->
+      <div class="section">
+        <div class="section-title">Key Projects</div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">🚗 ملكيتك — Vehicle Ownership Platform</div>
+            <div class="exp-date">2024</div>
+          </div>
+          <div class="exp-org">Featured Project · MERN Stack · AI Integration</div>
+          <div class="exp-desc">
+            A comprehensive digital platform for vehicle ownership transfer and government services in Saudi Arabia. Integrates AI for document processing and smart form filling.
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">React</span>
+            <span class="exp-tech">Node.js</span>
+            <span class="exp-tech">MongoDB</span>
+            <span class="exp-tech">AI Integration</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">🛒 freshCart — E-Commerce Platform</div>
+            <div class="exp-date">2023</div>
+          </div>
+          <div class="exp-org">MERN Stack · Payment Integration</div>
+          <div class="exp-desc">
+            Full-stack e-commerce solution with secure authentication, shopping cart, wishlist, RESTful API integration, and payment gateway.
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">React</span>
+            <span class="exp-tech">Redux</span>
+            <span class="exp-tech">REST API</span>
+            <span class="exp-tech">JWT</span>
+          </div>
+        </div>
+
+        <div class="exp-item">
+          <div class="exp-header">
+            <div class="exp-title">🎬 Trending — Movies & TV Database</div>
+            <div class="exp-date">2022</div>
+          </div>
+          <div class="exp-org">React · Redux Toolkit · MovieDB API</div>
+          <div class="exp-desc">
+            Integrated with MovieDB API. Built with React, Redux-toolkit, JWT authentication, Bootstrap, and Axios.
+          </div>
+          <div class="exp-techs">
+            <span class="exp-tech">React</span>
+            <span class="exp-tech">Redux-toolkit</span>
+            <span class="exp-tech">Axios</span>
+            <span class="exp-tech">JWT</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Education & Certifications in 2 columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+
+        <!-- Education -->
+        <div class="section" style="margin-bottom:0;">
+          <div class="section-title">Education</div>
+          <div class="edu-item" style="display:block;">
+            <div class="edu-degree">Bachelor of Commerce</div>
+            <div style="font-size:8.5pt;color:#475569;margin:1px 0;">Department of Accounting</div>
+            <div class="edu-school">Al-Azhar University</div>
+            <div class="edu-date" style="display:inline-block;margin-top:4px;">2016 – 2022</div>
+          </div>
+          <div class="edu-item" style="display:block;margin-top:8px;">
+            <div class="edu-degree">Full Stack Web Development</div>
+            <div style="font-size:8.5pt;color:#475569;margin:1px 0;">MERN Stack — React, Node.js, MongoDB</div>
+            <div class="edu-school">Route Academy</div>
+            <div class="edu-date" style="display:inline-block;margin-top:4px;">2022 – 2023</div>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="section" style="margin-bottom:0;">
+          <div class="section-title">Certifications</div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-text"><strong>Front-End Development</strong> — Route Academy</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-text"><strong>Google IT Support Certificate</strong> — Coursera / Google</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-text"><strong>System Administration</strong> & IT Infrastructure Services</div>
+          </div>
+          <div class="cert-item">
+            <div class="cert-dot"></div>
+            <div class="cert-text"><strong>IT Security</strong>: Defense Against the Digital Dark Arts</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Soft Skills -->
+      <div class="section" style="margin-top:16px;">
+        <div class="section-title">Professional Skills</div>
+        <div class="soft-skills">
+          <span class="soft-skill">✅ Fast Self-Learner</span>
+          <span class="soft-skill">🤝 Team Collaboration</span>
+          <span class="soft-skill">🧠 Problem Solving</span>
+          <span class="soft-skill">📊 Project Management</span>
+          <span class="soft-skill">🎤 Presentation Skills</span>
+          <span class="soft-skill">🔍 Attention to Detail</span>
+          <span class="soft-skill">⏰ Time Management</span>
+          <span class="soft-skill">🚀 Client-Focused</span>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+</body>
+</html>
